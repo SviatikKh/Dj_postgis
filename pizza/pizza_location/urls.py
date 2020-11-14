@@ -5,5 +5,5 @@ from .views import *
 
 urlpatterns = [
     path('', IndexPageView.as_view(), name='index'),
-    path('pizzeries/', views.pizzeries_loc, name='pizzeries'),
+    #path('pizzeries/', views.pizzeries_loc, name='pizzeries'),
 ]

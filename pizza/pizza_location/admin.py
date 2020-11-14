@@ -4,7 +4,7 @@ from leaflet.admin import LeafletGeoAdmin
 
 
 class PizzeriaAdmin(LeafletGeoAdmin):
-    list_display = ('city', 'coordinates')
+    list_display = ('city', 'location')
 
 
 admin.site.register(Pizzeria, PizzeriaAdmin)

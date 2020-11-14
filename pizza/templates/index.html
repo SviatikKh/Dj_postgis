@@ -1,30 +1,59 @@
 <!DOCTYPE html>
-<html>
-{% load static %}
-{% load leaflet_tags %}
-<head>
-    {% leaflet_js %}
-    {% leaflet_css %}
-    <title>Location</title>
-    <style type="text/css">
-        #gis {width: 80%; height: 500px;}
-    </style>
-    <script type="text/javascript" src="{% static 'dist/leaflet.ajax.js' %}"></script>
-</head>
-<body>
-<h3>Pizza location</h3>
-<br>
-<script type="text/javascript">
-    function layers(map, options){
-        var pizzeries = new L.GeoJSON.AJAX("{% url 'pizzeries' %}", {
-            onEachFeature: function(feature, layer){
-                    layer.bindPopup(feature.properties.city.toString())};
-});
-    pizzeries.addTo(map);
-}
-</script>
-<br>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Pizza location</title>
 
-{% leaflet_map "gis" callback="window.layers" %}
-</body>
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css"
+   integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
+   crossorigin=""/>
+
+ <script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"
+   integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg=="
+   crossorigin=""></script>
+
+
+        <style>
+            #mapid {width: 600px; height: 500px; }
+        </style>
+    </head>
+    <body>
+
+        <h3>Pizzeries location</h3>
+
+        <ul>
+        {% for pizza in pizzeries %}
+            <li>
+            {{ pizza.city }}: {{ pizza.location }}
+            </li>
+        {% endfor %}
+        </ul>
+
+
+
+        <div id="mapid"></div>
+
+        <script>
+            var map = L.map('mapid').setView([48.922563, 24.710408], 14);
+
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
+
+            L.marker([48.922563, 24.710408]).addTo(map)
+                .bindPopup('I am in Ivano-Frankivsk.<br> Looking for nearby pizzeries.')
+                .openPopup();
+
+            {% for pizza in pizzeries %}
+            var circle = L.circle([{{ pizza.location.y }}, {{ pizza.location.x }}], {
+                color: 'blue',
+                fillColor: '#f03',
+                fillOpacity: 0.5,
+                radius: 100
+            }).addTo(map);
+            {% endfor %}
+
+        </script>
+
+    </body>
 </html>
