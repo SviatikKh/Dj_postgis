@@ -1,12 +1,11 @@
 from django.contrib.gis.geos import Point
 from django.contrib.gis.db.models.functions import Distance
 from django.contrib.gis.measure import D
-from django.core.serializers import serialize
-from django.http import HttpResponse
+
 from django.shortcuts import render, redirect
-from django.template import RequestContext
+
 from django.views import View, generic
-from django.views.generic import TemplateView
+
 
 from pizza_location.forms import LocationForm
 from pizza_location.models import Pizzeria
