@@ -21,16 +21,6 @@
 
         <h3>Pizzeries list</h3>
 
-        {% comment %}
-        <form action="./" method="post" >
-            {% csrf_token %}
-            <table>
-                {{ form }}
-            </table>
-            <input maxlength="150" size="50" type="submit" value="Search" />
-        </form>
-        {% endcomment %}
-
         <ul>
         {% for pizza in pizzeries %}
             <li>

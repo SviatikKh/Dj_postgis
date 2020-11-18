@@ -1,11 +1,10 @@
 from django import forms
-from django.core import validators
-from django.forms import ModelForm, widgets
-from .models import Pizzeria
-from django.forms import fields
 
 
 class LocationForm(forms.Form):
+    """
+    Form for obtaining coordinates from the user
+    """
     latitude = forms.CharField()
     longitude = forms.CharField()
 
